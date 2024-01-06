@@ -3,9 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./images/Icons/icons8-notebook-96.png" type="image/x-icon">
     <title>NoteBook</title>
 </head>
 <body>
+    <!-- Main section -->
+    <section>
+        <!-- Empty input field -->
+        <header>
+            <div class="container">
+                <div class="empty_input" id="empty_input">
+                    <div class="note" contenteditable="true" id="note"contenteditable="true"></div>
+                </div>
+            </div>
+        </header>
+        <!-- Empty input field -->
+        <!-- Tools list -->
+        <aside>
+            <div class="container">
+                <!-- Add button -->
+                <div class="add" id="add">
+                    <span>Add</span>
+                    <i class="fa-solid fa-plus"></i>
+                </div> 
+                <!-- Add button -->
+                <!-- Text style -->
+                <!-- colors -->
+                <div class="colors" id="colors">
+                    <span data-color="red"></span>
+                    <span data-color="blue"></span>
+                    <span data-color="black"></span>
+                    <span data-color="yellow"></span>
+                </div>
+                <!-- colors -->
+                <!-- Text style -->
+            </div>
+        </aside>
+        <!-- Tools list -->
+        <!-- Field collector -->
+        <nav>
+            <div class="container">
+                <div class="notes" id="notes"></div> <!-- Divs with class "note" will be added here -->
+            </div>
+        </nav>
+        <!-- Field collector -->
+    </section>
+    <!-- Main section -->
+    <script src="./js/all.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./dist/main.js"></script>
 </body>
 </html>

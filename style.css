@@ -1,0 +1,119 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-image: url(./images/white-paper.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+section{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas: "main main main main main main main main tools tools tools tools" "notes notes notes notes notes notes notes notes tools tools tools tools";
+}
+
+header{
+    grid-area: main;
+    display: flex;
+    align-items: center;
+}
+
+aside{
+    background-color: chocolate;
+    grid-area: tools;
+    display: flex;
+    align-items: center;
+}
+
+aside .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+}
+
+.add{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background-color: #26d126;
+    width: fit-content;
+    padding: 10px 6px 10px 6px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.add:hover{
+    background-color: #1dc31d;
+    color: rgb(230, 229, 229);
+}
+
+.colors{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(160, 157, 157, 0.712);
+}
+
+.colors span{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.colors span:first-child{
+    background-color: red;
+}
+
+.colors span:nth-child(2){
+    background-color: blue;
+}
+
+.colors span:nth-child(3){
+    background-color: black;
+}
+
+.colors span:nth-child(4){
+    background-color: yellow;
+}
+
+nav{
+    grid-area: notes;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notes{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+}
+
+.note{
+    border: 2px black solid;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: wheat;
+    font-size: 18px;
+    font-weight: bold;
+}
