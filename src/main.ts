@@ -3,6 +3,11 @@
 let mainNote = <HTMLTextAreaElement> document.getElementById("note")
 let Notes = <HTMLDivElement> document.getElementById("notes")
 let AddButton = <HTMLDivElement> document.getElementById("add")
+let theNoteDivs = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".TheNote")
+
+
+
+var yes: boolean = false
 
 function createNote(): void{
     /* #1 Create elements */
@@ -13,9 +18,7 @@ function createNote(): void{
     let Note = <HTMLTextAreaElement> document.createElement("textarea")
     Note.value = (mainNote.value)
     Note.classList.add("Childnote")
-    // The div that contains the buttons
-    let buttons = <HTMLDivElement> document.createElement("div")
-    buttons.classList.add("buttons")
+    Note.setAttribute("readonly", "true")
     // Update button
     let update = <HTMLDivElement> document.createElement("div")
     let UpText: Text = document.createTextNode("update")
@@ -30,28 +33,32 @@ function createNote(): void{
     /* #2 Add all elements for their parents */
     // Add "note" div to "TheNote" div
     theNote.append(Note)
-    // Add "update" and "delete" buttons to "buttons" div
-    buttons.append(update)
-    buttons.append(remove)
-    // Add "buttons" div to "TheNote" div
-    theNote.append(buttons)
+    // Add "update" and "delete" buttons to "TheNote" div
+    theNote.append(update)
+    theNote.append(remove)
     /* #2 Add all elements for their parents */
     /* #3 Return the main div */
     Notes.append(theNote)
     /* #3 Return the main div */
+    yes = true
 }
 
-function classNote(div: HTMLDivElement): void{
-    div.classList.add("note")
-}
-function Editable(div: HTMLDivElement): void{
-    div.setAttribute("contenteditable", "true")
-}
-function UnEditable(div: HTMLDivElement): void{
-    div.setAttribute("contenteditable", "false")
-}
+
 function getClone(): void{
     createNote()
+    let deleteButton = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".delete")
+    if(yes){
+        deleteButton.forEach(function(e: HTMLDivElement){
+            e.addEventListener("click", () => e.parentElement?.remove())
+        })
+    }
+    // let updateButton = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".update")
+    // let note = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".Childnote")
+    // if(yes){
+    //     note.forEach(function(n){
+            
+    //     })
+    // }
 }
 
-AddButton.onclick = () => getClone()
+AddButton.addEventListener("click", () => getClone())

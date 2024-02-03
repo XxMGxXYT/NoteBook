@@ -10,6 +10,10 @@ body{
     background-attachment: fixed;
 }
 
+.none{
+    display: none !important
+}
+
 section{
     width: 100%;
     height: 100vh;
@@ -39,6 +43,7 @@ header{
     font-weight: bold;
     width: 100%;
     border: none;
+    resize: none;
 }
 
 aside{
@@ -70,6 +75,7 @@ aside .container{
     font-weight: bold;
     border-radius: 10px;
     cursor: pointer;
+    user-select: none;
 }
 
 .add:hover{
@@ -139,14 +145,12 @@ nav{
     width: 70%;
     font-size: 18px;
     font-weight: bold;
+    background-color: wheat;
+    border: none;
+    resize: none;
 }
-
-.buttons{
-    width: 22%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+.Childnote:focus{
+    outline: none;
 }
 
 .update{
@@ -159,9 +163,9 @@ nav{
     text-align: center;
     color: white;
     font-size: 15px;
-    font-weight: bold;
     border-radius: 10px;
     cursor: pointer;
+    user-select: none;
 }
 
 .update:hover{
@@ -179,9 +183,9 @@ nav{
     text-align: center;
     color: white;
     font-size: 15px;
-    font-weight: bold;
     border-radius: 10px;
     cursor: pointer;
+    user-select: none;
 }
 
 .delete:hover{
@@ -203,17 +207,12 @@ nav{
     .Childnote{
         font-size: 8px;
     }
-    .buttons{
-        flex-direction: column;
-        height: 60px;
-        width: 20%;
-    }
     .update{
-        font-size: 8px;
+        font-size: 7px;
         padding: 7px 4px 7px 4px;
     }
     .delete{
-        font-size: 8px;
+        font-size: 7px;
         padding: 7px 4px 7px 4px;
     }
 }
@@ -232,16 +231,11 @@ nav{
     .Childnote{
         font-size: 10px;
     }
-    .buttons{
-        flex-direction: column;
-        height: 80px;
-        width: 20%;
-    }
     .update{
-        font-size: 9px;
+        font-size: 8px;
     }
     .delete{
-        font-size: 9px;
+        font-size: 8px;
     }
 }
 
@@ -258,9 +252,6 @@ nav{
     }
     .Childnote{
         font-size: 13px;
-    }
-    .buttons{
-        width: 20%;
     }
     .update{
         font-size: 11px;
