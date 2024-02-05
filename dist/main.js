@@ -1,5 +1,6 @@
 "use strict";
-// [1] Search for "Textarea Element".
+// [1] Search for "Textarea Element" ("Solved")
+// [2] saveArray and arr2, not the same length
 let mainNote = document.getElementById("note");
 let Notes = document.getElementById("notes");
 let AddButton = document.getElementById("add");
@@ -46,12 +47,66 @@ function getClone() {
             e.addEventListener("click", () => { var _a; return (_a = e.parentElement) === null || _a === void 0 ? void 0 : _a.remove(); });
         });
     }
-    // let updateButton = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".update")
-    // let note = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".Childnote")
-    // if(yes){
-    //     note.forEach(function(n){
-    //     })
-    // }
+    let arr3 = [];
+    for (let i = 0; i < deleteButton.length; i++) {
+        arr3.push(deleteButton[i]);
+    }
+    let arr = [];
+    let updateButton = document.querySelectorAll(".update");
+    for (let i = 0; i < updateButton.length; i++) {
+        arr.push(updateButton[i]);
+    }
+    // console.log(arr)
+    let arr2 = [];
+    let childNote = document.querySelectorAll(".Childnote");
+    for (let i = 0; i < updateButton.length; i++) {
+        arr2.push(childNote[i]);
+    }
+    // console.log(arr2)
+    updateButton.forEach(function (e) {
+        e.addEventListener("click", function () {
+            var _a, _b;
+            // Make the note editable
+            arr2[arr.indexOf(e)].removeAttribute("readonly");
+            // Focus on the note
+            arr2[arr.indexOf(e)].focus();
+            // Create "save" and "cancel" Divs
+            let saveDiv = document.createElement("div");
+            let cancelDiv = document.createElement("div");
+            saveDiv.classList.add("save");
+            cancelDiv.classList.add("cancel");
+            // Create "save" and "cancel" Icons
+            let saveButtons = document.createElement("i");
+            let cancelButtons = document.createElement("i");
+            saveButtons.classList.add("fa-solid");
+            cancelButtons.classList.add("fa-solid");
+            saveButtons.classList.add("fa-check");
+            cancelButtons.classList.add("fa-x");
+            // Add icons to "save" and "cancel" Divs
+            saveDiv.appendChild(saveButtons);
+            cancelDiv.appendChild(cancelButtons);
+            // Add buttons to "TheNote" div
+            (_a = e.parentElement) === null || _a === void 0 ? void 0 : _a.append(saveDiv);
+            (_b = e.parentElement) === null || _b === void 0 ? void 0 : _b.append(cancelDiv);
+            // Get all "save" buttons, and put them in empty array
+            var saveArray = [];
+            let save = document.querySelectorAll(".save");
+            for (let i = 0; i < save.length; i++) {
+                saveArray.push(save[i]);
+            }
+            // // console.log(saveArray)
+            // save.forEach(function(ele){
+            //     ele.addEventListener("click", function(){
+            //         console.log(saveArray)
+            //         console.log(arr2[saveArray.indexOf(ele)])
+            //     })
+            //     // arr2[saveArray.indexOf(ele)].setAttribute("readonly", "true")
+            // })
+            // Remove "delete" and "update" buttons
+            arr3[arr.indexOf(e)].remove();
+            e.remove();
+        });
+    });
 }
 AddButton.addEventListener("click", () => getClone());
 //# sourceMappingURL=main.js.map

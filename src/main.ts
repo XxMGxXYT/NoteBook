@@ -1,4 +1,5 @@
-// [1] Search for "Textarea Element".
+// [1] Search for "Textarea Element" ("Solved")
+// [2] saveArray and arr2, not the same length
 
 let mainNote = <HTMLTextAreaElement> document.getElementById("note")
 let Notes = <HTMLDivElement> document.getElementById("notes")
@@ -44,7 +45,7 @@ function createNote(): void{
 }
 
 
-function getClone(): void{
+function getClone(): void {
     createNote()
     let deleteButton = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".delete")
     if(yes){
@@ -52,13 +53,65 @@ function getClone(): void{
             e.addEventListener("click", () => e.parentElement?.remove())
         })
     }
-    // let updateButton = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".update")
-    // let note = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".Childnote")
-    // if(yes){
-    //     note.forEach(function(n){
-            
-    //     })
-    // }
+    let arr3: HTMLDivElement[] = []
+    for(let i: number = 0; i < deleteButton.length; i++){
+        arr3.push(deleteButton[i])
+    }
+    let arr: HTMLDivElement[] = []
+    let updateButton = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".update")
+    for(let i: number = 0; i < updateButton.length; i++){
+        arr.push(updateButton[i])
+    }
+    // console.log(arr)
+    let arr2: HTMLDivElement[] = []
+    let childNote = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".Childnote")
+    for(let i: number = 0; i < updateButton.length; i++){
+        arr2.push(childNote[i])
+    }
+    // console.log(arr2)
+    updateButton.forEach(function(e: HTMLDivElement){
+        e.addEventListener("click", function(){
+            // Make the note editable
+            arr2[arr.indexOf(e)].removeAttribute("readonly")
+            // Focus on the note
+            arr2[arr.indexOf(e)].focus()
+            // Create "save" and "cancel" Divs
+            let saveDiv: HTMLDivElement = <HTMLDivElement> document.createElement("div")
+            let cancelDiv: HTMLDivElement = <HTMLDivElement> document.createElement("div")
+            saveDiv.classList.add("save")
+            cancelDiv.classList.add("cancel")
+            // Create "save" and "cancel" Icons
+            let saveButtons: HTMLDivElement = <HTMLDivElement> document.createElement("i")
+            let cancelButtons: HTMLDivElement = <HTMLDivElement> document.createElement("i")
+            saveButtons.classList.add("fa-solid")
+            cancelButtons.classList.add("fa-solid")
+            saveButtons.classList.add("fa-check")
+            cancelButtons.classList.add("fa-x")
+            // Add icons to "save" and "cancel" Divs
+            saveDiv.appendChild(saveButtons)
+            cancelDiv.appendChild(cancelButtons)
+            // Add buttons to "TheNote" div
+            e.parentElement?.append(saveDiv)
+            e.parentElement?.append(cancelDiv)
+            // Get all "save" buttons, and put them in empty array
+            var saveArray: HTMLDivElement[] = []
+            let save = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".save")
+            for(let i: number = 0; i < save.length; i++){
+                saveArray.push(save[i])
+            }
+            // // console.log(saveArray)
+            // save.forEach(function(ele){
+            //     ele.addEventListener("click", function(){
+            //         console.log(saveArray)
+            //         console.log(arr2[saveArray.indexOf(ele)])
+            //     })
+            //     // arr2[saveArray.indexOf(ele)].setAttribute("readonly", "true")
+            // })
+            // Remove "delete" and "update" buttons
+            arr3[arr.indexOf(e)].remove()
+            e.remove()
+        })
+    })
 }
 
 AddButton.addEventListener("click", () => getClone())
