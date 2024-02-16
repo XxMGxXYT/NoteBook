@@ -6,6 +6,7 @@ let Notes = document.getElementById("notes");
 let AddButton = document.getElementById("add");
 let theNoteDivs = document.querySelectorAll(".TheNote");
 var yes = false;
+let counter = 0;
 function createNote() {
     /* #1 Create elements */
     // The div that contains the note and the buttons
@@ -36,7 +37,11 @@ function createNote() {
     /* #2 Add all elements for their parents */
     /* #3 Return the main div */
     Notes.append(theNote);
+    // localStorage.setItem(`${counter}`, JSON.stringify(theNote.outerHTML))
+    // console.log(JSON.parse(localStorage.getItem(`${counter}`)))
+    mainNote.value = "";
     /* #3 Return the main div */
+    counter += 1;
     yes = true;
 }
 function buttons() {

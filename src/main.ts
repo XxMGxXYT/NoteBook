@@ -7,8 +7,8 @@ let AddButton = <HTMLDivElement> document.getElementById("add")
 let theNoteDivs = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".TheNote")
 
 
-
 var yes: boolean = false
+let counter: number = 0
 
 function createNote(): void{
     /* #1 Create elements */
@@ -40,7 +40,11 @@ function createNote(): void{
     /* #2 Add all elements for their parents */
     /* #3 Return the main div */
     Notes.append(theNote)
+    // localStorage.setItem(`${counter}`, JSON.stringify(theNote.outerHTML))
+    // console.log(JSON.parse(localStorage.getItem(`${counter}`)))
+    mainNote.value = "";
     /* #3 Return the main div */
+    counter += 1
     yes = true
 }
 
