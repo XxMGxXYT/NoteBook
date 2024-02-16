@@ -1,5 +1,9 @@
-// [1] Search for "Textarea Element" ("Solved")
-// [2] saveArray and textAreaArray, not the same length ("Solved")
+// [1] Search for "Textarea Element" => ("Solved")
+// [2] saveArray and textAreaArray, not the same length => ("Solved")
+// [3] Make update button works after localstorage job
+// [4] Make delete button works after localstorage job
+// [5] Make save button works after localstorage job
+// [6] Make cancel button works before and after localstorage job
 
 let mainNote = <HTMLTextAreaElement> document.getElementById("note")
 let Notes = <HTMLDivElement> document.getElementById("notes")
@@ -9,8 +13,23 @@ let theNoteDivs = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".TheNo
 
 var yes: boolean = false
 let counter: number = 0
+// Empty array for saving mainNote values
+let emptyArray: string[] = []
 
-function createNote(): void{
+// If there is value in the localstorage
+if(localStorage.getItem("notes")){
+    // Change the old values of "emptyArray" to the "emptyArray" in the localstorage
+    emptyArray = JSON.parse(localStorage.getItem("notes"))
+    // Make a note for each value in the "emptyArray"
+    emptyArray.forEach((e) => {
+        createNote().children[0].value = e
+        console.log(e)
+    })
+    // Make other buttons work
+    buttons()
+}
+
+function createNote(): HTMLDivElement{
     /* #1 Create elements */
     // The div that contains the note and the buttons
     let theNote = <HTMLDivElement> document.createElement("div")
@@ -37,15 +56,19 @@ function createNote(): void{
     // Add "update" and "delete" buttons to "TheNote" div
     theNote.append(update)
     theNote.append(remove)
-    /* #2 Add all elements for their parents */
-    /* #3 Return the main div */
+    // Add "theNote" to "Notes" div
     Notes.append(theNote)
-    // localStorage.setItem(`${counter}`, JSON.stringify(theNote.outerHTML))
-    // console.log(JSON.parse(localStorage.getItem(`${counter}`)))
+    /* #2 Add all elements for their parents */
+    /* #3 Set some values and return the finall note div */
+    // Set the mainNote empty again after a note created
     mainNote.value = "";
-    /* #3 Return the main div */
+    // Increase counter value
     counter += 1
+    // Set "yes" variable value to "true"
     yes = true
+    // Return the finall note div
+    return theNote
+    /* #3 Set some values and return the finall note div */
 }
 
 
@@ -53,7 +76,11 @@ function buttons(): void {
     let deleteButton = <NodeListOf<HTMLDivElement>> document.querySelectorAll(".delete")
     if(yes){
         deleteButton.forEach(function(e: HTMLDivElement){
-            e.addEventListener("click", () => e.parentElement?.remove())
+            e.addEventListener("click", () => {
+                e.parentElement?.remove()
+                // Remove all items from localstorage => [Just temporary]
+                localStorage.clear()
+            })
         })
     }
     let arr3: HTMLDivElement[] = []
@@ -135,8 +162,20 @@ function buttons(): void {
 
 
 AddButton.addEventListener("click", function(){
-    // Create a new note 
-    createNote()
-    // 
-    buttons()
+    // If there is text in the mainNote
+    if(mainNote.value !== ""){
+        // Add mainNote text to the empty array
+        emptyArray.push(mainNote.value)
+        console.log(emptyArray)
+        // Save array to the localstorage
+        localStorage.setItem("notes", JSON.stringify(emptyArray))
+        // Create a new note 
+        createNote()
+        // Make other buttons work
+        buttons()
+    } 
+    // If the mainNote empty
+    else {
+        return false
+    }
 })
