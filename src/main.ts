@@ -1,9 +1,10 @@
 // [1] Search for "Textarea Element" => ("Solved")
 // [2] saveArray and textAreaArray, not the same length => ("Solved")
 // [3] Make update button works after localstorage job
-// [4] Make delete button works after localstorage job
+// [4] Make delete button works after localstorage job => ("Solved")
 // [5] Make save button works after localstorage job
 // [6] Make cancel button works before and after localstorage job
+// [7] If note added without refresh the page, delete button will delete more than expected
 
 let mainNote = <HTMLTextAreaElement> document.getElementById("note")
 let Notes = <HTMLDivElement> document.getElementById("notes")
@@ -23,7 +24,6 @@ if(localStorage.getItem("notes")){
     // Make a note for each value in the "emptyArray"
     emptyArray.forEach((e) => {
         createNote().children[0].value = e
-        console.log(e)
     })
     // Make other buttons work
     buttons()
@@ -77,9 +77,11 @@ function buttons(): void {
     if(yes){
         deleteButton.forEach(function(e: HTMLDivElement){
             e.addEventListener("click", () => {
-                e.parentElement?.remove()
-                // Remove all items from localstorage => [Just temporary]
-                localStorage.clear()
+                // Deleting item from emptyArray, and set the new emptrArray values to localstorage
+                emptyArray.splice(emptyArray.indexOf(e.parentElement?.children[0].value), 1)
+                localStorage.setItem("notes", JSON.stringify(emptyArray))
+                // Deleting note from the page
+                setTimeout(() => e.parentElement?.remove(), 300)
             })
         })
     }
@@ -166,13 +168,13 @@ AddButton.addEventListener("click", function(){
     if(mainNote.value !== ""){
         // Add mainNote text to the empty array
         emptyArray.push(mainNote.value)
-        console.log(emptyArray)
         // Save array to the localstorage
         localStorage.setItem("notes", JSON.stringify(emptyArray))
         // Create a new note 
         createNote()
         // Make other buttons work
         buttons()
+        console.log(`From add button ${emptyArray}`)
     } 
     // If the mainNote empty
     else {
